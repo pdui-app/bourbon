@@ -9,13 +9,15 @@ def get_err(x, y, x_f, y_f, t):
 
 def rate_drunkenness(vid, x_f, y_f, fps):
     err = 0
+    count = 0
     offsets = vid_to_offsets(vid)
     for i, offset in enumerate(offsets):
         if offset:
             t = (1/fps)*i
             x, y = offset[0], offset[1]
             err += get_err(x, y, x_f, y_f, t)
-    return err
+            count += 1
+    return err / count
 
 
 def sinusoid(t, max_t, step):

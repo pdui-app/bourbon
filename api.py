@@ -1,6 +1,7 @@
 import cv2
 import urllib
 from flask import Flask, request, jsonify
+from skimage import io
 
 from bourbon_ import calibrate, rate_drunkenness
 
@@ -13,8 +14,8 @@ def calibrate_req():
     min_img_url = data['min-img-url']
     max_img_url = data['max-img-url']
 
-    min_img = urllib.urlretrieve(min_img_url)
-    max_img = urllib.urlretrieve(max_img_url)
+    min_img = io.imread(min_img_url)
+    max_img = io.imread(max_img_url)
 
     funcs = calibrate(min_img, max_img, 1)
     return jsonify({'success': funcs != None})
@@ -27,8 +28,8 @@ def tipsy():
     max_img_url = data['max-img-url']
     vid_url = data['vid-url']
 
-    min_img = urllib.urlretrieve(min_img_url)
-    max_img = urllib.urlretrieve(max_img_url)
+    min_img = io.imread(min_img_url)
+    max_img = io.imread(max_img_url)
     urllib.urlretrieve(vid_url, 'eyes.mp4')
 
     vidcap = cv2.VideoCapture('eyes.mp4')
