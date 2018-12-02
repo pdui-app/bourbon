@@ -21,7 +21,7 @@ def rate_drunkenness(vid, x_f, y_f, fps):
 
 
 def sinusoid(t, max_t, step):
-    return (1 + math.sin(t*step - math.pi))*(max_t/2)
+    return (1 + math.sin(t*step - math.pi)) / 2
 
 
 def get_parametric_functions(min_offset, max_offset, step):
@@ -39,6 +39,7 @@ def vid_to_offsets(vid):
     offsets = []
     ok, frame = vid.read()
     while ok:
+        frame = np.rot90(frame, 2)
         offset = getOffset(frame, haarFaceCascade, haarEyeCascade)
         if offset:
             offsets.append((offset[0], offset[1]))
@@ -50,7 +51,9 @@ def vid_to_offsets(vid):
 
 def calibrate(min, max, step):
     min_offset = getOffset(min, haarFaceCascade, haarEyeCascade)
+    print(min_offset)
     max_offset = getOffset(max, haarFaceCascade, haarEyeCascade)
+    print(max_offset)
     if not min_offset or not max_offset:
         return None
     return get_parametric_functions(min_offset, max_offset, step)

@@ -1,7 +1,8 @@
 import cv2
 import urllib
+import numpy as np
 from flask import Flask, request, jsonify
-from skimage import io
+from skimage import io, transform
 
 from bourbon_ import calibrate, rate_drunkenness
 
@@ -16,6 +17,12 @@ def calibrate_req():
 
     min_img = io.imread(min_img_url)
     max_img = io.imread(max_img_url)
+
+    min_img = cv2.cvtColor(min_img, cv2.COLOR_RGB2BGR)
+    max_img = cv2.cvtColor(max_img, cv2.COLOR_RGB2BGR)
+
+    min_img = np.rot90(min_img, 2)
+    max_img = np.rot90(max_img, 2)
 
     funcs = calibrate(min_img, max_img, 1)
     return jsonify({'success': funcs != None})

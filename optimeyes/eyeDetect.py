@@ -435,6 +435,7 @@ def getOffset(frame, haarFaceCascade, haarEyeCascade, allowDebugDisplay=False, t
     minEyeSize = (25,25)
     faces = detect(gray,haarFaceCascade,minFaceSize)
     eyes = detect(gray,haarEyeCascade,minEyeSize)
+    print eyes
     drawKeypoints = allowDebugDisplay #can set this false if you don't want the keypoint ID numbers
     if allowDebugDisplay:
         output = frame
@@ -443,6 +444,7 @@ def getOffset(frame, haarFaceCascade, haarEyeCascade, allowDebugDisplay=False, t
         output = None
 ##        draw_rects(output,eyes,(255,0,0))
     leftEye_rightEye = getLeftAndRightEyes(faces, eyes)
+    print leftEye_rightEye
     if leftEye_rightEye: #if we found valid eyes in a face
         # print 'uh'
 ##            draw_rects(output,leftEye_rightEye,(0,0,255)) #BGR format
