@@ -20,10 +20,6 @@ def calibrate_req():
     return jsonify({'success': funcs != None})
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
-
-
 @app.route('/tipsy', methods=['POST'])
 def tipsy():
     data = request.json
@@ -48,3 +44,7 @@ def tipsy():
         'success': True,
         'error': err
     })
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
