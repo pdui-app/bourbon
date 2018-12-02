@@ -19,7 +19,7 @@ def rate_drunkenness(vid, x_f, y_f, fps):
 
 
 def sinusoid(t, max_t, step):
-    return max_t + math.sin(t*step - math.pi)
+    return (1 + math.sin(t*step - math.pi))*(max_t/2)
 
 
 def get_parametric_functions(min_offset, max_offset, step):
